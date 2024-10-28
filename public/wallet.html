@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOT.TalkDrove - Wallet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../styles/wallet.css">
+<link rel="stylesheet" href="../nav/app.css">
+<link rel="stylesheet" href="./styles/main.css">
+
+
+</head>
+<body>
+        <div class="error"></div>
+    <div class="success"></div>
+    <header class="header">
+        <div class="header-content">
+            <h1><a class="logo" href="/dashboard">Host.TalkDrove</a></h1>
+            <nav class="nav-controls">
+                <!-- Add Bot Button with Dropdown -->
+                <button id="deployBotBtn" class="btn btn-primary" onclick="window.location.href='/dashboard/select-bot'">
+                    <i class="fas fa-plus"></i>
+                    <span>Deploy Bot</span>
+                </button>
+                <button id="themeToggle" class="btn btn-secondary">
+                    <i class="fas fa-adjust"></i>
+                </button>
+                
+                <!-- Profile Picture with Dropdown -->
+                <div class="profile-container">
+                    <img src="../../Images/profile.webp" alt="Profile" class="profile-pic" id="profileBtn">
+                    <div class="dropdown" id="profileDropdown">
+                        <a href="/dashboard/my-bots" class="dropdown-item">
+                            <i class="fas fa-robot"></i>
+                            <span>My Bots</span>
+                        </a>
+                        <a href="/dashboard/wallet" class="dropdown-item">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="/dashboard/settings" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    <main class="main">
+        <h2>Your Wallet</h2>
+        <div class="wallet-grid">
+            <div id="walletInfo">
+                <div class="balance-label">Current Balance</div>
+                <i class="fas fa-coins coin-icon"></i>  
+                <div id="coinBalance">Loading...</div>
+                <div class="claim-section">
+                    <button id="claimCoinsBtn" class="btn btn-primary">
+                        <i class="fas fa-gift"></i>
+                        <span>Claim Daily Coins</span>
+                    </button>
+                    </div>
+                    <div id="nextClaimTimer" class="timer-text"></div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                        </div>
+                        </div>
+                        <div class="stat-label">Total Apps</div>
+                        <div class="stat-value" id="totalDeployments">Loading...</div>
+                    </div>
+                 
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="sendCoins">
+            <h3>Send Coins</h3>
+            <input type="text" id="recipientPhone" placeholder="Recipient's Phone Number" required>
+            <input type="number" id="sendAmount" placeholder="Amount" required min="1">
+            <button id="sendCoinsBtn" class="btn btn-primary">Send Coins</button>
+        </div>
+<!-- lets get started -->
+
+
+            <div id="transactionHistory">
+                <h3>Recent Transactions</h3>
+                <ul id="transactionList"></ul>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const claimButton = document.getElementById('claimCoinsBtn');
+            claimButton.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await claimDailyCoins();
+            });
+    
+            // Initial check for claim status
+            checkClaimStatus();
+            loadWalletInfo();
+    
+            document.getElementById('sendCoinsBtn').addEventListener('click', sendCoins);
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+        });
+    
+        function showMessage(type, message) {
+            const successDiv = document.querySelector('.success');
+            const errorDiv = document.querySelector('.error');
+    
+            // Clear previous messages
+            successDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+    
+            if (type === 'success') {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                setTimeout(() => successDiv.style.display = 'none', 5000); // Hide after 5 seconds
+            } else if (type === 'error') {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                setTimeout(() => errorDiv.style.display = 'none', 5000); // Hide after 5 seconds
+            }
+        }
+    
+        async function loadWalletInfo() {
+            try {
+                const response = await fetch('/api/wallet');
+                const data = await response.json();
+    
+                document.getElementById('coinBalance').textContent = data.coins;
+                document.getElementById('totalDeployments').textContent = data.deployments.count;
+    
+                const transactionList = document.getElementById('transactionList');
+                transactionList.innerHTML = '';
+                data.recentTransactions.forEach(transaction => {
+                    const li = document.createElement('li');
+                    li.textContent = `${transaction.transaction_type}: ${transaction.amount} coins - ${new Date(transaction.transaction_date).toLocaleString()}`;
+                    transactionList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error loading wallet info:', error);
+                showMessage('error', 'Failed to load wallet information');
+            }
+        }
+    
+        async function sendCoins() {
+            const recipientPhone = document.getElementById('recipientPhone').value;
+            const amount = parseInt(document.getElementById('sendAmount').value);
+    
+            try {
+                const response = await fetch('/api/send-coins', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ recipientPhone, amount }),
+                });
+    
+                const data = await response.json();
+                if (response.ok) {
+                    showMessage('success', data.message); // Show success message
+                    loadWalletInfo();
+                } else {
+                    showMessage('error', data.error); // Show error message
+                }
+            } catch (error) {
+                console.error('Error sending coins:', error);
+                showMessage('error', 'An error occurred while sending coins'); // Show error message
+            }
+        }
+    
+        async function claimDailyCoins() {
+            const claimButton = document.getElementById('claimCoinsBtn');
+            const timerText = document.getElementById('nextClaimTimer');
+    
+            try {
+                claimButton.disabled = true; // Disable button immediately to prevent double clicks
+    
+                const response = await fetch('/claim-coins', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    // Update the coin balance
+                    document.getElementById('coinBalance').textContent = data.currentCoins;
+                    // Show success message
+                    showMessage('success', data.message);
+                    // Disable claim button and start timer
+                    claimButton.classList.add('disabled');
+                    startClaimTimer(data.nextClaimTime);
+                } else {
+                    // If claim failed, re-enable button and show error
+                    claimButton.disabled = false;
+                    claimButton.classList.remove('disabled');
+                    showMessage('error', data.message || 'Failed to claim coins');
+                }
+            } catch (error) {
+                console.error('Error claiming coins:', error);
+                claimButton.disabled = false;
+                claimButton.classList.remove('disabled');
+                showMessage('error', 'An error occurred while claiming coins');
+            }
+        }
+    
+        async function checkClaimStatus() {
+            try {
+                const response = await fetch('/check-claim-status');
+                const data = await response.json();
+    
+                const claimButton = document.getElementById('claimCoinsBtn');
+                const timerText = document.getElementById('nextClaimTimer');
+    
+                if (data.canClaim) {
+                    claimButton.disabled = false;
+                    claimButton.classList.remove('disabled');
+                    timerText.textContent = 'Coins are ready to claim!';
+                } else {
+                    claimButton.disabled = true;
+                    claimButton.classList.add('disabled');
+                    startClaimTimer(data.nextClaimTime);
+                }
+            } catch (error) {
+                console.error('Error checking claim status:', error);
+                showMessage('error', 'Failed to check claim status');
+            }
+        }
+    
+        let claimTimer;
+        async function startClaimTimer(nextClaimTime) {
+            const timerText = document.getElementById('nextClaimTimer');
+            const claimButton = document.getElementById('claimCoinsBtn');
+    
+            // Clear any existing timer
+            if (claimTimer) {
+                clearInterval(claimTimer);
+            }
+    
+            claimTimer = setInterval(() => {
+                const now = new Date().getTime();
+                const nextClaim = new Date(nextClaimTime).getTime();
+                const distance = nextClaim - now;
+    
+                if (distance < 0) {
+                    clearInterval(claimTimer);
+                    claimButton.disabled = false;
+                    claimButton.classList.remove('disabled');
+                    timerText.textContent = 'Coins are ready to claim!';
+                    return;
+                }
+    
+                // Calculate time units
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+                timerText.textContent = `Next claim available in: ${hours}h ${minutes}m ${seconds}s`;
+            }, 1000);
+        }
+    
+        function logout() {
+            window.location.href = '/logout';
+        }
+    </script>
+<script src="../nav/app.js"></script>    
+</body>
+</html>

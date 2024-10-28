@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bot.TalkDrove - Manage your WhatsApp bot details">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>BOT Details | <%= app.app_name %></title>
+    <link rel="stylesheet" href="../nav/app.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-hover: #3a53d0;
+            --secondary: #e6f0ff;
+            --accent: #3f37c9;
+            --neutral: #333333;
+            --base-100: #ffffff;
+            --base-200: #f8fafc;
+            --base-300: #f1f5f9;
+            --base-hamza: #4895ef;
+            --loader: #f8fafc;
+            --success: #4ade80;
+            --error: #f87171;
+            --loaderText: #1e293b;
+        }
+
+        [data-theme="dark"] {
+            --primary: #4361ee;
+            --primary-hover: #3a53d0;
+            --secondary: #1e293b;
+            --accent: #3f37c9;
+            --neutral: #f8fafc;
+            --base-100: #0f172a;
+            --base-200: #1e293b;
+            --base-300: #334155;
+            --base-hamza: #1e293b;
+            --loader: #0f172a;
+            --loaderText: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--base-200), var(--base-300));
+            color: var(--neutral);
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--base-100);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0 0 1rem 0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--base-200);
+            color: var(--neutral);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .main {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        #config-vars {
+            background-color: var(--base-100);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(229, 231, 235, 0.2);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .config-var {
+            margin-bottom: 1rem;
+        }
+
+        .config-var label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neutral);
+            font-weight: 500;
+        }
+
+        .config-var input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--base-300);
+            border-radius: 0.5rem;
+            background-color: var(--base-200);
+            color: var(--neutral);
+        }
+
+        #deleteAppBtn {
+            background-color: var(--error);
+            color: white;
+        }
+
+        #deleteAppBtn:hover {
+            background-color: #f65656;
+        }
+
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background-color: var(--loader);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        #loading-text {
+            color: var(--loaderText);
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .loader {
+            border: 3px solid var(--base-300);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .controls {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .btn span {
+                display: none;
+            }
+
+            .main {
+                padding: 1rem;
+            }
+        }
+        .message {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            color: rgb(0, 0, 0);
+            font-weight: 500;
+            z-index: 100;
+            animation: slideIn 0.3s ease;
+            display: none;
+        }
+
+        .error {
+            background-color: var(--error);
+        }
+
+        .success {
+            background-color: var(--success);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: var(--secondary-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #logs-container {
+            background: var(--secondary-bg);
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .log-timestamp {
+            color: var(--secondary-text);
+            margin-right: 10px;
+        }
+
+        .log-source {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        .log-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .auto-scroll {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #clear-logs {
+            margin-left: auto;
+        }
+
+        .config-var {
+            margin-bottom: 15px;
+        }
+
+        .config-var label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .config-var input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div id="loading-text"></div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1><a class="logo" href="/dashboard">Host.TalkDrove</a></h1>
+            <nav class="nav-controls">
+                <!-- Add Bot Button with Dropdown -->
+                <button id="deployBotBtn" class="btn btn-primary" onclick="window.location.href='/dashboard/select-bot'">
+                    <i class="fas fa-plus"></i>
+                    <span>Deploy Bot</span>
+                </button>
+                <button id="themeToggle" class="btn btn-secondary">
+                    <i class="fas fa-adjust"></i>
+                </button>
+                
+                <!-- Profile Picture with Dropdown -->
+                <div class="profile-container">
+                    <img src="../../Images/profile.webp" alt="Profile" class="profile-pic" id="profileBtn">
+                    <div class="dropdown" id="profileDropdown">
+                        <a href="/dashboard/my-bots" class="dropdown-item">
+                            <i class="fas fa-robot"></i>
+                            <span>My Bots</span>
+                        </a>
+                        <a href="/dashboard/wallet" class="dropdown-item">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="/dashboard/settings" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <h2><%= app.app_name %></h2>
+        <p>Deployed At: <%= app.deployed_at %></p>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="config">Config Vars</button>
+                <button class="tab-button" data-tab="logs">Logs</button>
+            </div>
+
+            <div id="config-tab" class="tab-content active">
+                <h3>BOT Config Vars</h3>
+                <div id="config-vars">
+                    <div class="loader" id="loader"></div>
+                </div>
+                <button id="save-vars-btn" class="btn btn-primary">Save Changes</button>
+            </div>
+
+            <div id="logs-tab" class="tab-content">
+                <h3>BOT Logs</h3>
+                <div class="log-controls">
+                    <select id="log-lines" class="btn btn-secondary">
+                        <option value="50">50 lines</option>
+                        <option value="100" selected>100 lines</option>
+                        <option value="200">200 lines</option>
+                        <option value="500">500 lines</option>
+                    </select>
+                    <div class="auto-scroll">
+                        <input type="checkbox" id="auto-scroll" checked>
+                        <label for="auto-scroll">Auto-scroll</label>
+                    </div>
+                    <button id="clear-logs" class="btn btn-secondary">Clear</button>
+                </div>
+                <div id="logs-container"></div>
+            </div>
+        </div>
+
+        <button id="deleteAppBtn" class="btn btn-danger" data-app-name="<%= app.app_name %>">Delete Bot</button>
+    </main>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute('data-theme', storedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        function showMessage(type, text) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = `message ${type}`;
+            messageElement.style.display = 'block';
+
+            setTimeout(() => {
+                messageElement.style.animation = 'fadeOut 0.5s ease';
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                    messageElement.style.animation = '';
+                }, 500);
+            }, 3000);
+        }
+
+        // Hide loading screen when page is loaded
+        window.addEventListener('load', () => {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                
+                // Update active states
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+
+                // Initialize content based on tab
+                if (tabName === 'logs') {
+                    initializeLogs();
+                } else if (tabName === 'config') {
+                    fetchConfigVars();
+                }
+            });
+        });
+
+
+        async function fetchConfigVars() {
+            try {
+                const appName = '<%= app.app_name %>';
+                const response = await fetch(`/api/config-vars/${appName}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch config vars');
+                }
+                const configVars = await response.json();
+                displayConfigVars(configVars);
+            } catch (error) {
+                console.error('Failed to fetch config vars:', error);
+                showMessage('error', 'Failed to load config vars. Please try again.');
+            }
+        }
+
+        function displayConfigVars(configVars) {
+            const configVarsContainer = document.getElementById('config-vars');
+            configVarsContainer.innerHTML = '';
+
+            for (const [key, value] of Object.entries(configVars)) {
+                const varElement = document.createElement('div');
+                varElement.classList.add('config-var');
+                varElement.innerHTML = `
+                    <label for="${key}">${key}:</label>
+                    <input type="text" id="${key}" value="${value}">
+                `;
+                configVarsContainer.appendChild(varElement);
+            }
+        }
+        async function saveConfigVars() {
+            const configVarsContainer = document.getElementById('config-vars');
+            const inputs = configVarsContainer.querySelectorAll('input');
+            const updatedVars = {};
+
+            inputs.forEach(input => {
+                updatedVars[input.id] = input.value;
+            });
+
+            try {
+                const appName = '<%= app.app_name %>';
+                const response = await fetch(`/api/config-vars/${appName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedVars)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update config vars');
+                }
+                showMessage('success', 'Config vars updated successfully!');
+            } catch (error) {
+                console.error('Error updating config vars:', error);
+                showMessage('error', 'Failed to update config vars. Please try again.');
+            }
+        }
+
+        document.getElementById('save-vars-btn').addEventListener('click', saveConfigVars);
+
+        const deleteAppBtn = document.getElementById('deleteAppBtn');
+        deleteAppBtn.addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to delete' + ' "<%= app.app_name %>"?   ')) {
+                return;
+            }
+
+            const appName = deleteAppBtn.getAttribute('data-app-name');
+            try {
+                const response = await fetch(`/delete-app/${appName}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    throw new Error('Failed to delete app');
+                }
+                showMessage('success', 'App deleted successfully. Redirecting to dashboard...');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 2000);
+            } catch (error) {
+                console.error(error);
+                showMessage('error', 'Failed to delete app. Please try again.');
+            }
+        });
+
+        // Loader
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingText = document.getElementById('loading-text');
+            const messages = [
+                'Loading.',
+                'Loading..',
+                'Loading...',
+                'Loading..',
+                'Loading.',
+            ];
+            let currentMessageIndex = 0;
+
+            function showNextMessage() {
+                loadingText.textContent = messages[currentMessageIndex];
+                currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+            }
+
+            showNextMessage();
+
+            const messageInterval = setInterval(showNextMessage, 100);
+
+            setTimeout(function() {
+                clearInterval(messageInterval);
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 1000);
+        });
+// Logs functionality
+let logsWebSocket = null;
+let autoScrollEnabled = true;
+let reconnectAttempts = 0;
+const MAX_RECONNECT_ATTEMPTS = 5;
+const RECONNECT_INTERVAL = 5000;
+
+function createStatusIndicator() {
+    const logsContainer = document.getElementById('logs-container');
+    if (!logsContainer) return null;
+
+    let statusIndicator = document.getElementById('connection-status');
+    if (!statusIndicator) {
+        statusIndicator = document.createElement('div');
+        statusIndicator.id = 'connection-status';
+        statusIndicator.className = 'connection-status connecting';
+        logsContainer.parentElement.insertBefore(statusIndicator, logsContainer);
+    }
+    return statusIndicator;
+}
+
+function updateStatus(status, message) {
+    const statusIndicator = createStatusIndicator();
+    if (statusIndicator) {
+        statusIndicator.className = `connection-status ${status}`;
+        statusIndicator.textContent = message;
+    }
+}
+
+function initializeLogs() {
+    const logsContainer = document.getElementById('logs-container');
+    if (!logsContainer) {
+        console.error('Logs container not found');
+        return;
+    }
+
+    const autoScrollCheckbox = document.getElementById('auto-scroll');
+    const clearLogsButton = document.getElementById('clear-logs');
+    const logLinesSelect = document.getElementById('log-lines');
+
+    // Reset state
+    reconnectAttempts = 0;
+    
+    // Clear any existing logs
+    logsContainer.innerHTML = '';
+    
+    // Create initial status indicator
+    createStatusIndicator();
+    updateStatus('connecting', 'Connecting...');
+
+    // Initial logs fetch
+    fetchInitialLogs(logLinesSelect.value);
+
+    // Setup WebSocket for real-time logs
+    setupLogsWebSocket();
+
+    // Auto-scroll functionality
+    if (autoScrollCheckbox) {
+        autoScrollCheckbox.addEventListener('change', (e) => {
+            autoScrollEnabled = e.target.checked;
+            if (autoScrollEnabled) {
+                scrollToBottom();
+            }
+        });
+    }
+
+    // Clear logs
+    if (clearLogsButton) {
+        clearLogsButton.addEventListener('click', () => {
+            logsContainer.innerHTML = '';
+            createStatusIndicator(); // Recreate status indicator after clear
+        });
+    }
+
+    // Change number of lines
+    if (logLinesSelect) {
+        logLinesSelect.addEventListener('change', () => {
+            logsContainer.innerHTML = '';
+            createStatusIndicator(); // Recreate status indicator after clear
+            fetchInitialLogs(logLinesSelect.value);
+        });
+    }
+}
+
+async function fetchInitialLogs(lines) {
+    try {
+        updateStatus('connecting', 'Fetching initial logs...');
+
+        const appName = '<%= app.app_name %>';
+        const response = await fetch(`/api/logs/${appName}?lines=${lines}`);
+        if (!response.ok) throw new Error('Failed to fetch logs');
+        
+        const data = await response.json();
+        if (data.success && data.logs) {
+            displayLogs(data.logs);
+            updateStatus('connected', 'Initial logs loaded');
+        }
+    } catch (error) {
+        console.error('Error fetching initial logs:', error);
+        updateStatus('error', 'Failed to fetch initial logs');
+        showMessage('error', 'Failed to fetch initial logs. Please try again.');
+    }
+}
+function setupLogsWebSocket() {
+    const appName = '<%= app.app_name %>';
+    
+    // Close existing connection if any
+    if (logsWebSocket && logsWebSocket.readyState !== WebSocket.CLOSED) {
+        logsWebSocket.close();
+    }
+
+    // Determine correct WebSocket protocol (ws:// or wss://)
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/api/logs/${appName}/stream`;
+
+    try {
+        // Create new WebSocket connection with error handling
+        logsWebSocket = new WebSocket(wsUrl);
+        
+        // Set timeout for connection
+        const connectionTimeout = setTimeout(() => {
+            if (logsWebSocket.readyState === WebSocket.CONNECTING) {
+                logsWebSocket.close();
+                updateStatus('error', 'Connection timeout');
+            }
+        }, 5000);
+
+        logsWebSocket.onopen = () => {
+            clearTimeout(connectionTimeout);
+            console.log('WebSocket connection established');
+            reconnectAttempts = 0;
+            updateStatus('connected', 'Connected to log stream');
+            
+            // Send initial ping to keep connection alive
+            sendPing();
+        };
+
+        logsWebSocket.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                
+                switch (data.type) {
+                    case 'pong':
+                        // Reset connection timeout on pong
+                        lastPongReceived = Date.now();
+                        break;
+                    case 'status':
+                        updateStatus('connected', data.message);
+                        break;
+                    case 'log':
+                        appendLog(data.data);
+                        break;
+                    case 'error':
+                        console.error('Log stream error:', data.message);
+                        updateStatus('error', data.message);
+                        break;
+                    default:
+                        appendLog(data);
+                }
+            } catch (error) {
+                console.error('Error processing WebSocket message:', error);
+            }
+        };
+
+        logsWebSocket.onerror = (error) => {
+            clearTimeout(connectionTimeout);
+            console.error('WebSocket error:', error);
+            updateStatus('error', 'Connection error');
+        };
+
+        logsWebSocket.onclose = (event) => {
+            clearTimeout(connectionTimeout);
+            console.log('WebSocket connection closed:', event.code, event.reason);
+            
+            // Don't attempt to reconnect if we're intentionally closing
+            if (event.code === 1000) {
+                updateStatus('disconnected', 'Connection closed');
+                return;
+            }
+            
+            // Implement exponential backoff for reconnection
+            if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                const backoffDelay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+                reconnectAttempts++;
+                updateStatus('disconnected', 
+                    `Reconnecting in ${backoffDelay/1000}s (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`
+                );
+                setTimeout(setupLogsWebSocket, backoffDelay);
+            } else {
+                updateStatus('error', 'Failed to connect after multiple attempts');
+                showMessage('error', 'Failed to connect to log stream. Please refresh the page to try again.');
+            }
+        };
+
+    } catch (error) {
+        console.error('Error setting up WebSocket:', error);
+        updateStatus('error', 'Failed to setup WebSocket connection');
+    }
+}
+
+// Keep-alive mechanism
+let pingInterval;
+let lastPongReceived = Date.now();
+const PING_INTERVAL = 30000; // 30 seconds
+const PONG_TIMEOUT = 10000;  // 10 seconds
+
+function sendPing() {
+    if (logsWebSocket && logsWebSocket.readyState === WebSocket.OPEN) {
+        logsWebSocket.send(JSON.stringify({ type: 'ping' }));
+        
+        // Check if we received a pong
+        setTimeout(() => {
+            if (Date.now() - lastPongReceived > PONG_TIMEOUT) {
+                console.log('Pong timeout - reconnecting');
+                logsWebSocket.close();
+            }
+        }, PONG_TIMEOUT);
+    }
+}
+
+// Start ping interval when connection is established
+function startPingInterval() {
+    stopPingInterval();
+    pingInterval = setInterval(sendPing, PING_INTERVAL);
+}
+
+function stopPingInterval() {
+    if (pingInterval) {
+        clearInterval(pingInterval);
+        pingInterval = null;
+    }
+}
+
+// Clean up on page unload
+window.addEventListener('beforeunload', () => {
+    stopPingInterval();
+    if (logsWebSocket) {
+        logsWebSocket.close(1000, 'Page unload');
+    }
+});
+
+function displayLogs(logs) {
+    const logsContainer = document.getElementById('logs-container');
+    if (!logsContainer) return;
+
+    logs.forEach(log => appendLog(log));
+    if (autoScrollEnabled) {
+        scrollToBottom();
+    }
+}
+
+function appendLog(log) {
+    const logsContainer = document.getElementById('logs-container');
+    if (!logsContainer) return;
+
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    
+    if (log.type === 'structured') {
+        logEntry.innerHTML = `
+            <span class="log-timestamp">${log.timestamp}</span>
+            <span class="log-source">${log.source}[${log.dyno}]:</span>
+            <span class="log-message">${escapeHtml(log.message)}</span>
+        `;
+    } else {
+        logEntry.innerHTML = `<span class="log-message">${escapeHtml(log.message || log)}</span>`;
+    }
+    
+    logsContainer.appendChild(logEntry);
+
+    // Limit the number of log entries to prevent memory issues
+    while (logsContainer.children.length > 1000) {
+        logsContainer.removeChild(logsContainer.firstChild);
+    }
+
+    if (autoScrollEnabled) {
+        scrollToBottom();
+    }
+}
+
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') {
+        unsafe = String(unsafe);
+    }
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function scrollToBottom() {
+    const logsContainer = document.getElementById('logs-container');
+    if (logsContainer) {
+        logsContainer.scrollTop = logsContainer.scrollHeight;
+    }
+}
+
+// Add necessary styles
+const style = document.createElement('style');
+style.textContent = `
+.connection-status {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.connection-status.connecting {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.connection-status.connected {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.connection-status.disconnected {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.connection-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.log-entry {
+    padding: 4px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.log-timestamp {
+    color: #666;
+    margin-right: 8px;
+}
+
+.log-source {
+    color: #007bff;
+    margin-right: 8px;
+}
+
+.log-message {
+    color: var(--text-color);
+}
+
+#logs-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: var(--background-color);
+}
+`;
+document.head.appendChild(style);
+
+// Cleanup WebSocket on page unload
+window.addEventListener('beforeunload', () => {
+    if (logsWebSocket) {
+        logsWebSocket.close();
+    }
+});
+
+// Initialize logs when the logs tab is shown
+document.addEventListener('DOMContentLoaded', () => {
+    const logsTab = document.querySelector('[data-tab="logs"]');
+    if (logsTab) {
+        logsTab.addEventListener('click', () => {
+            initializeLogs();
+        });
+    }
+});
+        
+        fetchConfigVars();
+    </script>
+    <script src="../nav/app.css"></script>
+</body>
+</html>

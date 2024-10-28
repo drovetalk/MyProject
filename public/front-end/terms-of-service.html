@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Host.TalkDrove</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Terms of Service for Host.TalkDrove WhatsApp bot deployment platform. Learn how we handle and protect your data.">
+    
+    <!-- Stylesheets -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #7C3AED;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .privacy-section {
+            transition: transform 0.3s ease;
+        }
+        
+        .privacy-section:hover {
+            transform: translateY(-2px);
+        }
+        
+        .floating-nav {
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-card {
+            border-radius: 1rem;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Improved Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 300px;
+            background: white;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 60;
+            visibility: hidden;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+            visibility: visible;
+        }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Focus styles for accessibility */
+        .mobile-menu:focus-within {
+            outline: 2px solid var(--primary);
+            outline-offset: -2px;
+        }
+        
+        .mobile-menu a:focus,
+        .mobile-menu button:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* No scroll when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu,
+            .mobile-menu-overlay {
+                display: none;
+            }
+        }
+        
+        .table-of-contents {
+            position: sticky;
+            top: 100px;
+        }
+        
+        @media (max-width: 768px) {
+            .table-of-contents {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        /* Improved fade-in animation */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header remains the same until mobile menu button -->
+    <header class="fixed w-full floating-nav bg-white/90 shadow-sm z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center space-x-2">
+                    <img src="../Images/talkdrove.png" alt="TalkDrove Logo" class="h-8 w-auto">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Home</a>
+                    <a href="/dashboard" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200 loginbtnn">Dashboard</a>
+                </div>
+                
+                <!-- Improved Mobile Menu Button -->
+                <button 
+                    class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    id="mobile-menu-button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Improved Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+        <div class="h-full flex flex-col p-6">
+            <div class="flex items-center justify-between mb-8">
+                <div class="text-2xl font-bold text-indigo-600">Menu</div>
+                <button 
+                    class="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    id="mobile-menu-close"
+                    aria-label="Close menu">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <nav class="flex-1">
+                <ul class="space-y-6">
+                    <li>
+                        <a href="/" class="block text-gray-600 hover:text-indigo-600 text-lg transition-colors duration-200">Home</a>
+                    </li>
+                    <li>
+                        <a href="#features" class="block text-gray-600 hover:text-indigo-600 text-lg transition-colors duration-200">Features</a>
+                    </li>
+                    <li>
+                        <a href="#bots" class="block text-gray-600 hover:text-indigo-600 text-lg transition-colors duration-200">Bots</a>
+                    </li>
+                    <li>
+                        <a href="#pricing" class="block text-gray-600 hover:text-indigo-600 text-lg transition-colors duration-200">Pricing</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="pt-6 border-t mt-auto">
+                <div class="flex items-center justify-between bg-indigo-100 px-4 py-2 rounded-lg mb-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-indigo-600 font-semibold">10 Free Coins Daily</span>
+                    </div>
+                </div>
+                <a href="/dashboard" class="block w-full bg-indigo-600 text-white text-center px-6 py-3 rounded-lg hover:bg-indigo-700 transition loginbtnn">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+        <!-- Table of Contents - Desktop -->
+        <div class="hidden lg:block col-span-1">
+            <div class="table-of-contents bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Contents</h3>
+                <ul class="space-y-2">
+                    <li><a href="#acceptance" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Acceptance of Terms</a></li>
+                    <li><a href="#eligibility" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Eligibility</a></li>
+                    <li><a href="#account" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Account Registration</a></li>
+                    <li><a href="#services" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Services Description</a></li>
+                    <li><a href="#usage" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Acceptable Use</a></li>
+                    <li><a href="#payment" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Payment Terms</a></li>
+                    <li><a href="#intellectual" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Intellectual Property</a></li>
+                    <li><a href="#termination" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Termination</a></li>
+                    <li><a href="#liability" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Limitation of Liability</a></li>
+                    <li><a href="#modifications" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Modifications</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-3">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl font-bold text-gray-900 mb-8 fade-in-section">Terms of Service</h1>
+                
+                <div class="space-y-8">
+                    <section id="acceptance" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Acceptance of Terms</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">By accessing or using Host.TalkDrove's services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+                        </div>
+                    </section>
+
+                    <section id="eligibility" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Eligibility</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">To use our services, you must:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Be at least 13 years old or have legal guardian consent</li>
+                                <li>Have the legal capacity to enter into these terms</li>
+                                <li>Not be prohibited from using our services under applicable laws</li>
+                                <li>Comply with WhatsApp's terms of service and policies</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="account" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Account Registration</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">When creating an account, you agree to:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Provide accurate and complete information</li>
+                                <li>Maintain the security of your account credentials</li>
+                                <li>Notify us immediately of any unauthorized access</li>
+                                <li>Take responsibility for all activities under your account</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="services" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Services Description</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">Our platform provides:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>WhatsApp bot deployment and hosting services</li>
+                                <li>Bot configuration and management tools</li>
+                                <li>Integration with WhatsApp Business API</li>
+                                <li>Analytics and monitoring features</li>
+                            </ul>
+                            <p class="mt-4">We reserve the right to modify, suspend, or discontinue any part of our services at any time.</p>
+                        </div>
+                    </section>
+
+                    <section id="usage" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Acceptable Use</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">You agree not to:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Use our services for any illegal purposes</li>
+                                <li>Send spam or unauthorized messages</li>
+                                <li>Violate WhatsApp's policies or terms</li>
+                                <li>Interfere with the proper functioning of our services</li>
+                                <li>Attempt to gain unauthorized access to our systems</li>
+                                <li>Use our services to harm others or their property</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="payment" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Payment Terms</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">Payment terms include:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Fees are based on your selected plan and usage</li>
+                                <li>Payment is required in advance for subscription services</li>
+                                <li>Daily free coins are provided as specified</li>
+                                <li>Refunds are processed according to our refund policy</li>
+                                <li>We may change our fees with 30 days notice</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="intellectual" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Intellectual Property</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">All content and technology on our platform is protected by intellectual property rights. You retain ownership of your content but grant us necessary licenses to provide our services.</p>
+                        </div>
+                    </section>
+
+                    <section id="termination" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Termination</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">We may terminate or suspend your access to our services:</p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>For violations of these terms</li>
+                                <li>For extended periods of inactivity</li>
+                                <li>At our reasonable discretion</li>
+                                <li>Upon your request</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="liability" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Limitation of Liability</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">Our services are provided "as is" without warranties. We are not liable for any indirect, incidental, special, or consequential damages.</p>
+                        </div>
+                    </section>
+
+                    <section id="modifications" class="section-card p-6 privacy-section fade-in-section">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Modifications to Terms</h2>
+                        <div class="prose text-gray-600">
+                            <p class="mb-4">We may modify these terms at any time. Continued use of our services after changes constitutes acceptance of the modified terms.</p>
+                            <p class="text-sm text-gray-500">Last updated: October 25, 2024</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="col-span-2 md:col-span-1">
+            <h3 class="text-2xl font-bold mb-4">Host.TalkDrove</h3>
+            <p class="text-gray-400 mb-4">The #1 platform for WhatsApp bot hosting and deployment.</p>
+            <div class="flex space-x-4">
+                <a href="https://facebook.com/@talkdrove" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://x.com" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/talkdrove" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+                <li><a href="https://host.talkdrove.com/#features" class="text-gray-400 hover:text-white">Features</a></li>
+                <li><a href="https://host.talkdrove.com/#bots" class="text-gray-400 hover:text-white">Bots</a></li>
+                <li><a href="https://host.talkdrove.com/#pricing" class="text-gray-400 hover:text-white">Pricing</a></li>
+                <li><a href="https://info.talkdrove.com" class="text-gray-400 hover:text-white">Info</a></li>
+                <li><a href="https://docs.talkdrove.com" class="text-gray-400 hover:text-white">Documentation</a></li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Support</h4>
+            <ul class="space-y-2">
+                <li><a href="/help" class="text-gray-400 hover:text-white">Help Center</a></li>
+                <li><a href="https://community.talkdrove.com/" class="text-gray-400 hover:text-white">Community</a></li>
+                <li><a href="https://host.talkdrove.com/status" class="text-gray-400 hover:text-white">System Status</a></li>
+                <li><a href="/contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Legal</h4>
+            <ul class="space-y-2">
+                <li><a href="/privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                <li><a href="/terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400">&copy; 2024 Host.TalkDrove. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="/privacy" class="text-gray-400 hover:text-white">Privacy</a>
+            <a href="/terms" class="text-gray-400 hover:text-white">Terms</a>
+            <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+        </div>
+    </div>
+</div>
+</footer>
+
+<!-- Mobile Menu (Hidden by default) -->
+<div class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50" id="mobile-menu">
+    <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl p-6">
+        <div class="flex items-center justify-between mb-8">
+            <div class="text-2xl font-bold text-indigo-600">Menu</div>
+            <button class="p-2 rounded-lg hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="space-y-6">
+            <a href="#features" class="block text-gray-600 hover:text-indigo-600 text-lg">Features</a>
+            <a href="#bots" class="block text-gray-600 hover:text-indigo-600 text-lg">Bots</a>
+            <a href="#pricing" class="block text-gray-600 hover:text-indigo-600 text-lg">Pricing</a>
+            
+            <div class="pt-6 border-t">
+                <div class="flex items-center justify-between bg-indigo-100 px-4 py-2 rounded-lg mb-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-indigo-600 font-semibold">10 Free Coins Daily</span>
+                    </div>
+                </div>
+                <a href="/signup" class="block w-full bg-indigo-600 text-white text-center px-6 py-3 rounded-lg hover:bg-indigo-700 transition">Get Started</a>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+    <script>
+        // Improved Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.classList.add('menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+            
+            // Focus trap
+            const focusableElements = mobileMenu.querySelectorAll(
+                'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+            
+            firstFocusable.focus();
+            
+            function trapFocus(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            e.preventDefault();
+                            lastFocusable.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            e.preventDefault();
+                            firstFocusable.focus();
+                        }
+                    }
+                }
+                
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            }
+            
+            mobileMenu.addEventListener('keydown', trapFocus);
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            mobileMenuButton.focus();
+        }
+        
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Close menu when clicking menu items (for anchor links)
+        mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMobileMenu();
+                
+                // Smooth scroll to section
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    e.preventDefault();
+                    const headerOffset = 100;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Improved scroll animations with Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-section');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        function initializeAnimations() {
+            document.querySelectorAll('.privacy-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Check login status with better error handling
+        async function checkLoginStatus() {
+            try {
+                const response = await fetch('/check-login');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.isLoggedIn) {
+                        document.querySelectorAll('.loginbtnn').forEach(btn => {
+                            btn.textContent = 'Dashboard';
+                            btn.href = '/dashboard';
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to check login status:', error);
+            }
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            initializeAnimations();
+            
+            // Initialize table of contents for desktop
+            if (window.innerWidth >= 1024) {
+                initializeTableOfContents();
+            }
+        });
+        
+        // Debounced window resize handler
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.innerWidth >= 768) {
+                    closeMobileMenu();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

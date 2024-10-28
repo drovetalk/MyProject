@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host.TalkDrove - #1 Free WhatsApp Bot Hosting Platform | Deploy Bots Instantly</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Deploy WhatsApp bots instantly on Host Talk Drove. Get 10 free coins daily for 24/7 bot hosting. Choose from premium bots, deploy with one click, and get free Heroku accounts.">
+    <meta name="keywords" content="whatsapp bot hosting, free whatsapp bot, bot deployment platform, automated whatsapp messages, business automation, free heroku accounts, whatsapp business solution, bot hosting platform">
+    
+    <!-- Open Graph / Social Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Host.TalkDrove - Deploy Free WhatsApp Bots Instantly">
+    <meta property="og:description" content="Get 10 free coins daily for 24/7 WhatsApp bot hosting. Deploy premium bots instantly with Host.TalkDrove.">
+    <meta property="og:image" content="../images/talkdrove.png">
+    <meta property="og:url" content="https://host.talkdrove.com">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Host.TalkDrove - #1 WhatsApp Bot Hosting Platform">
+    <meta name="twitter:description" content="Deploy WhatsApp bots for free. Get daily coins for 24/7 hosting.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://host.talkdrove.com">
+    
+    <!-- Stylesheets -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #7C3AED;
+        }
+        #desktopnav{
+            color: white;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .coin-glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px -5px #FFD700;
+            }
+            to {
+                box-shadow: 0 0 20px 5px #FFD700;
+            }
+        }
+        
+        .floating {
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center space-x-2">
+                    <img src="../Images/talkdrove.png" alt="TalkDrove Logo" width="150px" height="auto">
+                    <!-- <span class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Host.TalkDrove</span> -->
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div id="desktopnav" class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-white-600 hover:text-indigo-600 transition">Features</a>
+                    <a href="#bots" class="text-white-600 hover:text-indigo-600 transition">Bots</a>
+                    <a href="#pricing" class="text-white-600 hover:text-indigo-600 transition">Pricing</a>
+                    <div class="flex items-center space-x-2 bg-indigo-100 px-4 py-2 rounded-full">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                       <a href="/dashboard/wallet"><span class="text-indigo-600 font-semibold">10 Free Coins Daily</span></a>
+                    </div>
+                    <a href="/login" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition loginbtnn">Login</a>
+                </div>
+          <!-- Update the Mobile Menu Button in the header -->
+<button class="md:hidden p-2 rounded-lg hover:bg-gray-100" id="mobile-menu-button" aria-label="Menu">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+</button>
+
+<!-- Mobile Menu (Hidden by default) -->
+<div class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50" id="mobile-menu">
+    <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl p-6">
+        <div class="flex items-center justify-between mb-8">
+            <div class="text-2xl font-bold text-indigo-600">Menu</div>
+            <button class="p-2 rounded-lg hover:bg-gray-100" id="mobile-menu-close">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="space-y-6">
+            <a href="#features" class="block text-gray-600 hover:text-indigo-600 text-lg">Features</a>
+            <a href="#bots" class="block text-gray-600 hover:text-indigo-600 text-lg">Bots</a>
+            <a href="#pricing" class="block text-gray-600 hover:text-indigo-600 text-lg">Pricing</a>
+            
+            <div class="pt-6 border-t">
+                <div class="flex items-center justify-between bg-indigo-100 px-4 py-2 rounded-lg mb-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-indigo-600 font-semibold">10 Free Coins Daily</span>
+                    </div>
+                </div>
+                <a  href="/login" class="block w-full bg-indigo-600 text-white text-center px-6 py-3 rounded-lg hover:bg-indigo-700 transition loginbtnn">Login</a>
+            </div>
+        </nav>
+    </div>
+</div>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative gradient-bg min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">    
+                    <h1 class="hero-text text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Deploy WhatsApp Bots <span class="text-yellow-300">For Free</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-indigo-100">Deploy a WhatsApp bot in minutes. Get 10 free coins daily for 24/7 hosting, choose from premium bots, and enjoy your day!</p>
+                    
+                    <!-- Hero CTA -->
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="/signup" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold hover:bg-indigo-50 transition text-center">
+                            Start Free
+                        </a>
+                        <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition text-center">
+                            How It Works
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="mt-12 flex items-center space-x-8">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span class="ml-2 text-white">4.9/5 Rating</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="ml-2 text-white">10,000+ Users</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="relative">
+                    <div class="floating">
+                        <img src="../Images/front-robo.png" alt="WhatsApp Bot Dashboard" class="rounded-xl">
+                    </div>
+                    <!-- Coin System Preview -->
+                    <div class="absolute -bottom-4 -right-4 bg-white p-6 rounded-xl shadow-lg coin-glow">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-600">Daily Free Coins</div>
+                                <div class="text-2xl font-bold text-indigo-600">10 Coins</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Host.TalkDrove?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything you need to deploy and manage WhatsApp bots, completely free with our daily coin system.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1: Free Coins -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Daily Free Coins</h3>
+                    <p class="text-gray-600">Get 10 coins every day. Each coin provides 2.4 hours of bot runtime - enough for 24/7 operation.</p>
+                </div>
+                
+                <!-- Feature 2: Premium Bots -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Premium Bot Selection</h3>
+                    <p class="text-gray-600">Choose from our curated collection of premium WhatsApp bots. Deploy instantly with one click.</p>
+                </div>
+                
+                <!-- Feature 3: Free Heroku -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Continuing from previous Feature 3 SVG -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-4">Free Heroku accounts</h3>
+            <p class="text-gray-600">Exchange coins for premium Heroku accounts. Deploy your bots on HEROKU also.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-24 bg-white">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Get your WhatsApp bot up and running in three simple steps</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-12">
+        <!-- Step 1 -->
+        <div class="relative">
+            <div class="absolute -left-4 -top-4 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">1</div>
+            <div class="bg-gray-50 p-8 rounded-xl h-full">
+                <h3 class="text-xl font-semibold mb-4">Choose Your Bot</h3>
+                <p class="text-gray-600 mb-4">Browse our collection of WhatsApp bots. Select the one.</p>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative">
+            <div class="absolute -left-4 -top-4 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">2</div>
+            <div class="bg-gray-50 p-8 rounded-xl h-full">
+                <h3 class="text-xl font-semibold mb-4">Deploy Instantly</h3>
+                <p class="text-gray-600 mb-4">Click deploy and use your daily coins. Our system handles all the technical setup automatically.</p>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative">
+            <div class="absolute -left-4 -top-4 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">3</div>
+            <div class="bg-gray-50 p-8 rounded-xl h-full">
+                <h3 class="text-xl font-semibold mb-4">Start Automating</h3>
+                <p class="text-gray-600 mb-4">Connect your WhatsApp number and start automating your instantly.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Popular Bots Section -->
+<section id="bots" class="py-24 bg-gray-50">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Popular Bots</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Choose from our selection of premium WhatsApp bots</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- Bot Card 1 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div class="relative">
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm">Popular</div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">X-BYTE</h3>
+                <p class="text-gray-600 mb-4">Bot with buttons, download YouTube videos for free on your Whatsapp.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-indigo-600 font-semibold">10 coins/day</span>
+                    <button onclick="window.location.href='/dashboard/select-bot'" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Deploy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bot Card 2 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div class="relative">
+                <div class="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm">New</div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">BYTE-LITE</h3>
+                <p class="text-gray-600 mb-4">BYTE-LITE, the lite version of BYTE-MD.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-indigo-600 font-semibold">10 coins/day</span>
+                    <button onclick="window.location.href='/dashboard/select-bot'" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Deploy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bot Card 3 -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div class="relative">
+                <div class="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm">Premium</div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">BYTE-MD</h3>
+                <p class="text-gray-600 mb-4">BYTE-MD with best features</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-indigo-600 font-semibold">10 coins/day</span>
+                    <button onclick="window.location.href='/dashboard/select-bot'" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Deploy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Coin System Explanation -->
+<section class="py-24 gradient-bg">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center text-white">
+        <div class="mb-8">
+            <svg class="w-20 h-20 mx-auto text-yellow-300 mb-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+            </svg>
+            <h2 class="text-4xl font-bold mb-4">Daily Coin System</h2>
+            <p class="text-xl text-indigo-100 mb-8">Earn 10 coins every day automatically. Use them to keep your bots running 24/7.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl">
+                <div class="text-3xl font-bold mb-2">10</div>
+                <div class="text-indigo-100">Daily Free Coins</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl">
+                <div class="text-3xl font-bold mb-2">2.4h</div>
+                <div class="text-indigo-100">Runtime Per Coin</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl">
+                <div class="text-3xl font-bold mb-2">24/7</div>
+                <div class="text-indigo-100">Continuous Operation</div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-24 bg-white">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything you need to know about our platform</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-6">
+        <!-- FAQ Item 1 -->
+        <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold mb-2">How do daily coins work?</h3>
+            <p class="text-gray-600">You can claim 10 coins every 24 hours. Each coin provides 2.4 hours of bot runtime, allowing for continuous 24/7 operation.</p>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold mb-2">Can I run multiple bots?</h3>
+            <p class="text-gray-600">Yes! You can run multiple bots simultaneously using your daily coins. Each bot consumes coins based on its complexity and features.</p>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold mb-2">How do I get a Heroku account?</h3>
+            <p class="text-gray-600">You can exchange your coins for premium Heroku accounts directly within our platform. The process is automatic and instant.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 gradient-bg">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-4xl font-bold text-white mb-8">Ready to Automate Your WhatsApp?</h2>
+    <p class="text-xl text-indigo-100 mb-12 max-w-2xl mx-auto">We are new here on the internet and get your free coins and start deploying bots today!</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+        <a href="/signup" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold hover:bg-indigo-50 transition w-full sm:w-auto">
+            Create Free Account
+        </a>
+    </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="col-span-2 md:col-span-1">
+            <h3 class="text-2xl font-bold mb-4">Host.TalkDrove</h3>
+            <p class="text-gray-400 mb-4">The #1 platform for WhatsApp bot hosting and deployment.</p>
+            <div class="flex space-x-4">
+                <a href="https://facebook.com/@talkdrove" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://x.com" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/talkdrove" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+                <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                <li><a href="#bots" class="text-gray-400 hover:text-white">Bots</a></li>
+                <li><a href="#pricing" class="text-gray-400 hover:text-white">Pricing</a></li>
+                <li><a href="https://info.talkdrove.com" class="text-gray-400 hover:text-white">Info</a></li>
+                <li><a href="https://docs.talkdrove.com" class="text-gray-400 hover:text-white">Documentation</a></li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Support</h4>
+            <ul class="space-y-2">
+                <li><a href="/help" class="text-gray-400 hover:text-white">Help Center</a></li>
+                <li><a href="/community" class="text-gray-400 hover:text-white">Community</a></li>
+                <li><a href="/status" class="text-gray-400 hover:text-white">System Status</a></li>
+                <li><a href="/contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+            <h4 class="text-lg font-semibold mb-4">Legal</h4>
+            <ul class="space-y-2">
+                <li><a href="/privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                <li><a href="/terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                <li><a href="/security" class="text-gray-400 hover:text-white">Security</a></li>
+                <li><a href="/compliance" class="text-gray-400 hover:text-white">Compliance</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400">&copy; 2024 Host.TalkDrove. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" class="text-gray-400 hover:text-white">Privacy</a>
+            <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+            <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+        </div>
+    </div>
+</div>
+</footer>
+
+<!-- Mobile Menu (Hidden by default) -->
+<div class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50" id="mobile-menu">
+    <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl p-6">
+        <div class="flex items-center justify-between mb-8">
+            <div class="text-2xl font-bold text-indigo-600">Menu</div>
+            <button class="p-2 rounded-lg hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="space-y-6">
+            <a href="#features" class="block text-gray-600 hover:text-indigo-600 text-lg">Features</a>
+            <a href="#bots" class="block text-gray-600 hover:text-indigo-600 text-lg">Bots</a>
+            <a href="#pricing" class="block text-gray-600 hover:text-indigo-600 text-lg">Pricing</a>
+            
+            <div class="pt-6 border-t">
+                <div class="flex items-center justify-between bg-indigo-100 px-4 py-2 rounded-lg mb-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 2a6 6 0 100 12 6 6 0 000-12z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-indigo-600 font-semibold">10 Free Coins Daily</span>
+                    </div>
+                </div>
+                <a href="/signup" class="block w-full bg-indigo-600 text-white text-center px-6 py-3 rounded-lg hover:bg-indigo-700 transition">Get Started</a>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  
+  // Get DOM elements
+
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    async function checkLogin() {
+    try {
+        const response = await fetch('/check-login');
+        if (response.ok) {
+            const loginBtn = document.querySelector('.loginbtnn'); 
+            loginBtn.innerText = 'Dashboard';
+            loginBtn.href = '/dashboard'; // Update the button's href to point to /dashboard
+        }
+    } catch (error) {
+        console.log('Wow');
+    }
+}
+checkLogin();
+    // Toggle mobile menu
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+    });
+    
+    // Close mobile menu
+    mobileMenuClose.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
+    
+    // Close menu when clicking outside
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+    
+    // Close menu when clicking on mobile menu links
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

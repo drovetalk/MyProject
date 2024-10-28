@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta name="description" content="Bot.TalkDrove get unlimited free WhatsApp bots on your number here!">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host.TalkDrove - Dashboard</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="../nav/app.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <div id="loading-text"></div>
+    </div>
+
+    <div class="error"></div>
+    <div class="success"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1>Host.TalkDrove</h1>
+            <nav class="nav-controls">
+                <button id="deployBotBtn" class="btn btn-primary" onclick="window.location.href='/dashboard/buy-heroku'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Buy Heroku</span>
+                    </button>
+                <!-- Add Bot Button with Dropdown -->
+                <button id="deployBotBtn" class="btn btn-primary" onclick="window.location.href='/dashboard/select-bot'">
+                    <i class="fas fa-plus"></i>
+                    <span>Deploy Bot</span>
+                </button>
+                <button id="themeToggle" class="btn btn-secondary">
+                    <i class="fas fa-adjust"></i>
+                </button>
+                
+                <!-- Profile Picture with Dropdown -->
+                <div class="profile-container">
+                    <img src="../Images/profile.webp" alt="Profile" class="profile-pic" id="profileBtn">
+                    <div class="dropdown" id="profileDropdown">
+                        <a href="/dashboard/my-bots" class="dropdown-item">
+                            <i class="fas fa-robot"></i>
+                            <span>My Bots</span>
+                        </a>
+                        <a href="/dashboard/wallet" class="dropdown-item">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="/dashboard/my-heroku" class="dropdown-item">
+                            <i class="fas fa-server"></i>
+                            <span>My Heroku</span>
+                        <a href="/dashboard/account-settings" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div id="coinInfo">
+            <span id="coinBalance">Coins: loading...</span>
+          
+               
+            </button>
+        </div>
+
+        <div id="userApps"></div>
+        <div class="loader" id="loader"></div>
+    </main>
+<script src="../nav/app.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
